@@ -50,6 +50,20 @@ h1 { margin: 0; color: var(--red); font-size: clamp(20px, 2.5vw, 24px); line-hei
 .ornament--spoon { left: 2%; top: 70px; font-size: 46px; transform: rotate(-20deg); }
 .ornament--spark { left: 22%; bottom: 15px; font-size: 29px; }
 
+.recipe-card { cursor: pointer; }
+.recipe-card:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
+.recipe-modal { position: fixed; width: min(720px, calc(100vw - 32px)); max-width: none; max-height: min(90vh, 820px); padding: 0; overflow: hidden; border: 0; border-radius: 14px; background: #fffaf4; color: var(--ink); box-shadow: 0 24px 80px rgba(25,18,12,.35); }
+.recipe-modal[open] { animation: modal-in .22s ease-out; }
+.recipe-modal::backdrop { background: rgba(31,25,20,.68); backdrop-filter: blur(4px); }
+.modal-image { display: block; width: 100%; max-height: 68vh; object-fit: cover; background: #e8ded1; }
+.modal-details { padding: 18px 22px 22px; }
+.modal-tag { display: inline-block; padding: 4px 8px; border-radius: 999px; background: #fbe5df; color: var(--red); font-size: 11px; font-weight: 700; }
+.modal-details h2 { margin: 8px 0 3px; font-size: clamp(20px, 4vw, 28px); text-transform: capitalize; }
+.modal-details p { margin: 0; color: #827367; font-size: 14px; }
+.modal-close { position: absolute; z-index: 1; top: 12px; right: 12px; display: grid; width: 38px; height: 38px; place-items: center; border: 0; border-radius: 50%; background: rgba(30,24,20,.66); color: #fff; font-size: 27px; line-height: 1; cursor: pointer; }
+.modal-close:hover { background: var(--red); }
+@keyframes modal-in { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
 @media (min-width: 700px) {
   .recipe-feature { padding-top: 25px; }
   .recipe-card { flex-basis: 116px; height: 162px; }
@@ -63,5 +77,6 @@ h1 { margin: 0; color: var(--red); font-size: clamp(20px, 2.5vw, 24px); line-hei
   .recipe-card { flex-basis: 132px; height: 180px; }
   .ornament--spoon { left: auto; right: -7px; top: 8px; font-size: 35px; }
   .ornament--spark { left: auto; right: 28%; }
+  .modal-details { padding: 15px 18px 18px; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }

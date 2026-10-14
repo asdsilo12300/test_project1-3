@@ -13,12 +13,36 @@ const track = document.querySelector("#recipe-track");
 recipes.forEach((recipe) => {
   const card = document.createElement("article");
   card.className = "recipe-card";
+  card.tabIndex = 0;
+  card.setAttribute("role", "button");
+  card.setAttribute("aria-label", `View ${recipe.title} recipe`);
   card.innerHTML = `
     <img src="${recipe.image}" alt="${recipe.title}" loading="lazy" style="object-position:${recipe.position}" />
     <span class="card-tag">${recipe.tag}</span>
     <div class="card-copy"><h2>${recipe.title}</h2><p>${recipe.time} | ${recipe.servings}</p></div>
   `;
+  const openRecipe = () => {
+    document.querySelector("#modal-image").src = recipe.image.replace("w=600", "w=1400");
+    document.querySelector("#modal-image").alt = recipe.title;
+    document.querySelector("#modal-title").textContent = recipe.title;
+    document.querySelector("#modal-meta").textContent = `${recipe.time} · ${recipe.servings}`;
+    document.querySelector("#modal-tag").textContent = recipe.tag;
+    document.querySelector("#recipe-modal").showModal();
+  };
+  card.addEventListener("click", openRecipe);
+  card.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openRecipe();
+    }
+  });
   track.append(card);
+});
+
+const recipeModal = document.querySelector("#recipe-modal");
+document.querySelector(".modal-close").addEventListener("click", () => recipeModal.close());
+recipeModal.addEventListener("click", (event) => {
+  if (event.target === recipeModal) recipeModal.close();
 });
 
 document.querySelectorAll(".carousel-button").forEach((button) => {
